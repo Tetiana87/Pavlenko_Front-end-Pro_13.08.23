@@ -8,16 +8,17 @@ const $psw = document.getElementById("psw");
 const $pswError = document.getElementById("psw-error");
 const $submitError = document.getElementById("submit-error");
 
-function validateName() {
-  const name = document.getElementById("contact-name").value;
+const $card = document.getElementById("bank-card-input").value;
 
-  if (name == "") {
+function validateName() {
+  const $name = document.getElementById("contact-name").value;
+  if ($name == "") {
     $nameError.innerHTML = `Name is required`;
     return false;
   }
 
   // if (!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)) {
-  if (!name.match(/^.+\s.+\s?.*$/i)) {
+  if (!$name.match(/^.+\s.+\s?.*$/i)) {
     $nameError.innerHTML = `Write full name`;
     return false;
   }
@@ -27,19 +28,18 @@ function validateName() {
 }
 
 function validateAge() {
-  const age = document.getElementById("contact-age").value;
-
-  if (age == "") {
+  const $age = document.getElementById("contact-age").value;
+  if ($age == "") {
     $ageError.innerHTML = `Age is required`;
     return false;
   }
 
-  if (!age.match(/^(?:100|[1-9]\d|[6-9])$/)) {
+  if (!$age.match(/^(?:100|[1-9]\d|[6-9])$/)) {
     $ageError.innerHTML = `Only whole digits, please`;
     return false;
   }
 
-  if (age < 18 || age > 60) {
+  if ($age < 18 || $age > 60) {
     $ageError.innerHTML = `The age must be from 18 to 60`;
 
     return false;
@@ -50,24 +50,32 @@ function validateAge() {
 }
 
 function validatePhone() {
-  const phone = document.getElementById("contact-phone").value;
+  const $phone = document.getElementById("contact-phone").value;
 
-  if (phone == "") {
+  if ($phone == "") {
     $phoneError.innerHTML = `Phone is required`;
     return false;
   }
 
+  // if (!$phone.match(/^((\+?3)?8)?0\d{9}$/) != null) {
+  //   $phoneError.innerHTML = `Start from +3, please`;
+  //   return false;
+  // }
+  // function checkNumber(AStr) {
+  //   AStr = AStr.replace(/[\s\-\(\)]/g, "");
+  //   return AStr.match(/^((\+?3)?8)?0\d{9}$/) != null;
+  // }
   // if (!phone.match(/^[0-9]{10}+$/)) {
   // if (!phone.match(/(.*\d.*){10}/)) {
   // if (!phone.match(/^\d{10}$/)) {
   // if (!phone.match(/[0-9]{10}/)) {
 
-  if (!phone.match(/^\d+$/)) {
-    $phoneError.innerHTML = `Only digits, please`;
-    return false;
-  }
+  // if (!$phone.match(/^\d+$/)) {
+  //   $phoneError.innerHTML = `Only digits, please`;
+  //   return false;
+  // }
 
-  if (!phone.match(/^\d{10}/)) {
+  if (!$phone.match(/^\d{13}/)) {
     $phoneError.innerHTML = `Only 10 digits, please`;
     return false;
   }
@@ -83,14 +91,13 @@ function validatePhone() {
 }
 
 function validateEmail() {
-  const email = document.getElementById("contact-email").value;
-
-  if (email == "") {
+  const $email = document.getElementById("contact-email").value;
+  if ($email == "") {
     $emailError.innerHTML = `Email is required`;
     return false;
   }
 
-  if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+  if (!$email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
     $emailError.innerHTML = `Email Invalid`;
     return false;
   }
@@ -126,39 +133,38 @@ $inputCard.addEventListener("input", function (evt) {
 });
 // }
 
-function validateCard() {
-  const $card = document.getElementById("bank-card-input").value;
-  // let regExp = /[0-9]{4}/;
-  let regExp = /^\d+$/;
+// function validateCard() {
+//   // let regExp = /[0-9]{4}/;
+//   let regExp = /^\d+$/;
 
-  // const $cardInput = document.querySelector("#bank-card-input"),
-  //   numbers = /[0-9]/,
-  //   regExp = /[0-9]{4}/;
+//   // const $cardInput = document.querySelector("#bank-card-input"),
+//   //   numbers = /[0-9]/,
+//   //   regExp = /[0-9]{4}/;
 
-  if ($card == "") {
-    $cardError.innerHTML = `Bank card is required`;
-    return false;
-  }
-  // else {
-  // $cardError.innerHTML = `Only 16 digits, please`;
+//   if ($card == "") {
+//     $cardError.innerHTML = `Bank card is required`;
+//     return false;
+//   }
+//   // else {
+//   // $cardError.innerHTML = `Only 16 digits, please`;
 
-  // }
+//   // }
 
-  // if (!$card.match(regExp)) {
-  //   $cardError.innerHTML = `Only digits, please`;
-  //   return false;
-  // }
+//   // if (!$card.match(regExp)) {
+//   //   $cardError.innerHTML = `Only digits, please`;
+//   //   return false;
+//   // }
 
-  if (!$card.match(/^\d{16}/)) {
-    $cardError.innerHTML = `Only 16 digits, please`;
-    return false;
-  }
-  // console.log($card);
+//   if (!$card.match(/^\d{16}/)) {
+//     $cardError.innerHTML = `Only 16 digits, please`;
+//     return false;
+//   }
+//   // console.log($card);
 
-  $cardError.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+//   $cardError.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
 
-  return true;
-}
+//   return true;
+// }
 
 // function validateCard() {
 
@@ -267,7 +273,7 @@ function validateForm() {
     !validateAge() ||
     !validatePhone() ||
     !validateEmail() ||
-    !validateCard() ||
+    // !validateCard() ||
     !validatePsw()
   ) {
     $submitError.style.display = "block";
@@ -279,9 +285,171 @@ function validateForm() {
   }
 }
 
-function showDate() {
-  let pepleList;
-  if (localStorage.getItem("pepleList") == null) {
-    pepleList = [];
+// let peopleList;
+// function showDate() {
+//   // let peopleList;
+//   if (localStorage.getItem("pepleList") == null) {
+//     peopleList = [];
+//   } else {
+//     peopleList = JSON.parse(localStorage.getItem("peopleList"));
+//   }
+
+//   let info = "";
+//   console.log(info);
+//   peopleList.forEach(function (element, index) {
+//     info += "<tr>";
+//     info += "<td>" + element.name + "</td>";
+//     info += "<td>" + element.age + "</td>";
+//     info += "<td>" + element.$phone + "</td>";
+//     info += "<td>" + element.$email + "</td>";
+//     info += "<td>" + element.$card + "</td>";
+//     info +=
+//       '<td><button onclick ="deleteDate(' +
+//       index +
+//       ')" class="btn btn-danger">Delete</button><button
+//       onclick="updateData(' +
+//       index +
+//       ')" class="btn btn-warning m-2">Edit</button></td>';
+//     info += "</tr>";
+//   });
+
+//   document.querySelector("#crudTable tbody").innerHTML = info;
+// }
+
+// document.onload = showDate();
+
+// function addData() {
+//   validateForm();
+//   if (
+//     validateName() == true &&
+//     validateAge() == true &&
+//     validatePhone() == true &&
+//     validateEmail() == true &&
+//     validateCard() == true
+//   ) {
+//     const name = document.getElementById("contact-name").value;
+//     const age = document.getElementById("contact-age").value;
+//     const phone = document.getElementById("contact-phone").value;
+//     const email = document.getElementById("contact-email").value;
+//     const card = document.getElementById("bank-card-input").value;
+//     // let peopleList;
+//     if (localStorage.getItem("pepleList") == null) {
+//       peopleList = [];
+//     } else {
+//       peopleList = JSON.parse(localStorage.getItem("peopleList"));
+//     }
+
+//     peopleList.push({
+//       name: name,
+//       age: age,
+//       phone: phone,
+//       email: email,
+//       $card: card,
+//     });
+
+//     localStorage.setItem("peopleList", JSON.stringify(peopleList));
+//     showDate();
+//     document.getElementById("contact-name").value = "";
+//     document.getElementById("contact-age").value = "";
+//     document.getElementById("contact-phone").value = "";
+//     document.getElementById("contact-email").value = "";
+//     document.getElementById("bank-card-input").value = "";
+//   }
+// }
+
+const mockUsers = [
+  {
+    id: 1,
+    name: "Paul P",
+    age: 18,
+    phone: 123456789,
+    email: "asd@gmail.com",
+    card: 1234123412341234,
+  },
+
+  {
+    id: 2,
+    name: "Rfte G",
+    age: 20,
+    phone: 123456789,
+    email: "asd@gmail.com",
+    card: 1234123412341234,
+  },
+];
+const $list = document.getElementById("list");
+const $form = document.getElementById("form");
+
+let users = mockUsers;
+
+const username = document.getElementById("contact-name");
+const password = document.getElementById("psw");
+const email = document.getElementById("contact-email");
+
+function addUsers(event) {
+  event.preventDefault();
+  // checkRequired([username, email, password]);
+
+  if (validation(this) == true) {
+    console.log("good");
+  } else {
+    console.log("bed");
   }
+  // if (
+  //   validateName() == false ||
+  //   validateAge() == false ||
+  //   validatePhone() == false ||
+  //   validateEmail() == false
+  //   // ||
+  //   // validateCard() == false
+  //   // ||
+  //   // validatePsw() == false
+  // ) {
+  //   validateForm();
+  //   console.log("bed");
+  // } else {
+  //   console.log("good");
+  // }
+}
+
+function addUsersDom(users) {
+  const $tr = document.createElement("tr");
+  $tr.innerHTML = `<th>${users.name}</th>
+              <th>${users.age}</th>
+              <th>${users.phone}</th>
+              <th>${users.email}</th>
+              <th>${users.card}</th>
+              <button class="delete-btn">Delete</button>`;
+
+  $list.appendChild($tr);
+}
+
+function unit() {
+  $list.innerHTML = "";
+  users.forEach(addUsersDom);
+}
+
+unit();
+
+$form.addEventListener("submit", addUsers);
+
+// function checkRequired(inputArr) {
+//   inputArr.forEach((input) => {
+//     if (input.value.trim() === "") {
+//       showError(input, `${getFieldName(input)} is required`);
+//     } else {
+//       showSuccess(input);
+//     }
+//   });
+// }
+
+function validation(form) {
+  console.log(form);
+
+  let result = true;
+
+  form.querySelectorAll("input").forEach((input) => {
+    console.log(input);
+  });
+
+  return result;
 }
