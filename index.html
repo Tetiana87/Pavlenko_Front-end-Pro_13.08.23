@@ -19,8 +19,8 @@
     ></script>
   </head>
   <body>
-    <div class="container">
-      <form id="form">
+    <div class="main-container">
+      <form class="form-control" id="form">
         <i class="fas fa-paper-plane"></i>
 
         <div class="input-group">
@@ -28,9 +28,12 @@
           <input
             type="text"
             placeholder="Enter your name"
-            id="contact-name"
-            onkeyup="validateName()"
+            id="name"
+            data-required="true"
+            data-full-name="full name"
           />
+
+          <!-- onkeyup="validateName()" -->
           <span id="name-error"></span>
         </div>
 
@@ -39,11 +42,13 @@
           <input
             type="number"
             placeholder="Enter your age"
-            id="contact-age"
-            onkeyup="validateAge()"
+            id="age"
             min="1"
-            max="100"
+            max="99"
+            data-required="true"
+            data-age="age"
           />
+          <!-- onkeyup="validateAge()" -->
           <span id="age-error"></span>
         </div>
 
@@ -52,12 +57,13 @@
           <input
             type="tel"
             placeholder="123 456 7890"
-            id="contact-phone"
-            onkeyup="validatePhone()"
-            pattern="[\+]\d{2}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
+            id="phone"
             maxlength="13"
-            minlength="13"
+            data-required="true"
+            data-phone="phone"
           />
+          <!-- pattern="[\+]\d{2}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" -->
+          <!-- onkeyup="validatePhone()" -->
           <span id="phone-error"></span>
         </div>
 
@@ -66,9 +72,11 @@
           <input
             type="email"
             placeholder="Enter Email"
-            id="contact-email"
-            onkeyup="validateEmail()"
+            id="email"
+            data-required="true"
+            data-email="email"
           />
+          <!-- onkeyup="validateEmail()" -->
           <span id="email-error"></span>
         </div>
 
@@ -83,7 +91,10 @@
           <input
             type="text"
             placeholder="0000 0000 0000 0000"
-            id="bank-card-input"
+            id="card"
+            data-required="true"
+            data-card="card"
+            maxlength="19"
           />
           <!-- onkeyup="validateCard()" -->
           <span id="card-error"></span>
@@ -93,13 +104,15 @@
           <label>Password</label>
           <input
             type="password"
-            id="psw"
+            id="password"
             name="psw"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            data-required="true"
+            data-psw="psw"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-            onkeyup="validatePsw()"
           />
-          <span id="psw-error"></span>
+          <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
+          <!-- onkeyup="validatePsw()" -->
+          <span class="psw" id="psw-error"></span>
         </div>
 
         <div id="message">
@@ -122,19 +135,19 @@
           <table class="table table-bordered" id="crudTable">
             <thead>
               <tr>
-                <th>Full Name</th>
+                <!-- <th>Full Name</th>
                 <th>Age</th>
                 <th>Phone</th>
                 <th>Email</th>
-                <th>Card</th>
+                <th>Card</th> -->
               </tr>
             </thead>
             <tbody id="list">
-              <th>Full Name</th>
+              <!-- <th>Full Name</th>
               <th>Age</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Card</th>
+              <th>Card</th> -->
             </tbody>
           </table>
         </div>
